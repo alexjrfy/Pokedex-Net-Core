@@ -25,7 +25,10 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IEnumerable<Pokemon>> Get()
         {
-            var pokemons = await _context.Pokemon.ToListAsync();
+            var pokemons = await _context.Pokemon
+                .Include(t => t.Type1)
+                .Include(t => t.Type2)
+                .ToListAsync();
             return pokemons;
         }
 
